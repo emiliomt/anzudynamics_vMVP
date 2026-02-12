@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.env
+*.log
+uploads/invoices/*
+!uploads/invoices/.gitkeep
+.DS_Store
+Thumbs.db
