@@ -14,6 +14,7 @@
     "dev:client": "npm run dev --workspace=client",
     "build": "npm run build --workspace=shared && npm run build --workspace=client && npm run build --workspace=server",
     "start": "npm run start --workspace=server",
+    "railway:build": "npm run build && npm run db:push",
     "check": "tsc --noEmit",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",

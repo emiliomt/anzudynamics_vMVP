@@ -25,8 +25,13 @@ fs.mkdirSync(uploadDir, { recursive: true });
 
 // ─── Middleware ────────────────────────────────────────────────────────────────
 app.use(helmet());
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
-app.use(morgan("dev"));
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGIN || "http://localhost:5173",
+    credentials: true,
+  })
+);
+app.use(morgan(process.env.NODE_ENV === "production" ? "combined" : "dev"));
 app.use(express.json({ limit: "25mb" }));
 app.use(express.urlencoded({ extended: true }));
 
@@ -92,8 +97,9 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // ─── Start ────────────────────────────────────────────────────────────────────
-app.listen(PORT, () => {
-  console.log(`[server] running on http://localhost:${PORT}`);
+const HOST = process.env.HOST || "0.0.0.0";
+app.listen(PORT, HOST, () => {
+  console.log(`[server] running on http://${HOST}:${PORT}`);
   console.log(`[server] env: ${process.env.NODE_ENV || "development"}`);
 });
 
