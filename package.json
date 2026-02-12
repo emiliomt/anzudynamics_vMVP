@@ -21,6 +21,9 @@
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio"
   },
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "devDependencies": {
     "concurrently": "^9.1.0",
     "drizzle-kit": "^0.30.4",
