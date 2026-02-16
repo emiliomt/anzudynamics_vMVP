@@ -7,7 +7,7 @@ COPY package*.json ./
 COPY shared/package*.json ./shared/
 COPY server/package*.json ./server/
 
-# Install ALL dependencies
+# Install ALL dependencies including dev (need tsx to run TypeScript directly)
 RUN npm install --legacy-peer-deps
 
 # Copy source files
@@ -16,16 +16,7 @@ COPY server/ ./server/
 COPY drizzle.config.ts ./
 COPY tsconfig.json ./
 
-# Build server - bundle everything EXCEPT native modules that can't be bundled
-RUN cd server && npx esbuild src/index.ts \
-    --platform=node \
-    --bundle \
-    --format=esm \
-    --outdir=../dist/server \
-    --external:sharp \
-    --external:pg-native \
-    --external:fsevents
-
 EXPOSE 3000
 
-CMD ["node", "/app/dist/server/index.js"]
+# Run TypeScript directly with tsx - no build step needed
+CMD ["npx", "tsx", "server/src/index.ts"]
