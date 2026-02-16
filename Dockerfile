@@ -16,8 +16,7 @@ COPY server/ ./server/
 COPY drizzle.config.ts ./
 COPY tsconfig.json ./
 
-# Build shared and server
-RUN npm run build --workspace=shared
+# Build server only (shared has no build script - used directly as TypeScript)
 RUN npm run build --workspace=server
 
 EXPOSE 3000
