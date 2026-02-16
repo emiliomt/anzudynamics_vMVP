@@ -1,0 +1,14 @@
+[phases.setup]
+nixPkgs = ["nodejs_20"]
+
+[phases.install]
+cmds = ["npm install --legacy-peer-deps"]
+
+[phases.build]
+cmds = [
+  "npm run build --workspace=shared",
+  "npm run build --workspace=server"
+]
+
+[start]
+cmd = "npm run start --workspace=server"
